@@ -28,6 +28,7 @@ local Defaults = {
             SkinAuras = true,
             SkinActionBars = true,
             HideBlizzardTextures = true,
+            SkinMicroMenu = false,
             UIErrorsFrame = {
                 Enabled = true,
                 FontSize = 12,

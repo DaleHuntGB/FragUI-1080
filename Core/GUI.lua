@@ -110,11 +110,12 @@ local function CreateSkinningSettings(parentContainer)
     SkinningContainer:SetFullWidth(true)
     parentContainer:AddChild(SkinningContainer)
 
-    local SortOrder = { "SkinActionBars", "SkinAuras", "HideBlizzardTextures"}
+    local SortOrder = { "SkinActionBars", "SkinAuras", "SkinMicroMenu", "HideBlizzardTextures"}
 
     local OptionsForSkinning = {
         ["SkinAuras"] = {Title = "Skin Auras", Desc = "Skins Buffs, Debuffs and External Defensive Auras."},
         ["SkinActionBars"] = {Title = "Skin Action Bars", Desc = "Skins Action Bars."},
+        ["SkinMicroMenu"] = {Title = "Skin Micro Menu", Desc = "Skins the Micro Menu."},
         ["HideBlizzardTextures"] = {Title = "Skin Blizzard Frames", Desc = "Hides Blizzard Textures/Frames such as |cFFFFCC00Zone Text|r and |cFFFFCC00Objective Tracker|r."},
     }
 

@@ -239,6 +239,84 @@ local function HandleMinimapMouseDown(_, button)
     end
 end
 
+local _, FUI = ...
+
+local function SkinMicroMenu()
+	local microButtons = {
+		"CharacterMicroButton",
+		"ProfessionMicroButton",
+		"PlayerSpellsMicroButton",
+		"AchievementMicroButton",
+		"QuestLogMicroButton",
+        "HousingMicroButton",
+		"GuildMicroButton",
+		"LFDMicroButton",
+		"CollectionsMicroButton",
+		"EJMicroButton",
+		"StoreMicroButton",
+		"MainMenuMicroButton",
+	}
+
+	for _, name in ipairs(microButtons) do
+		local button = _G[name]
+		if button and button.Background then
+			button.Background:SetTexture(nil)
+			button.Background:Hide()
+			button.PushedBackground:SetTexture(nil)
+			button.PushedBackground:Hide()
+		end
+	end
+
+	for i, name in ipairs(microButtons) do
+		local button = _G[name]
+		if button and not button.BorderFrame then
+			local border = CreateFrame("Frame", nil, button, "BackdropTemplate")
+			border:SetFrameLevel(button:GetFrameLevel() - 1)
+            button:SetSize(20.4, 26)
+
+			border:SetPoint("TOPLEFT", button, -1, 1)
+			border:SetPoint("BOTTOMRIGHT", button, 1, -1)
+			border:SetBackdrop({
+				bgFile = "Interface\\Buttons\\WHITE8x8",
+				edgeFile = "Interface\\Buttons\\WHITE8x8",
+				edgeSize = 1,
+			})
+			border:SetBackdropColor(26/255, 26/255, 26/255, 1)
+			border:SetBackdropBorderColor(0, 0, 0, 1)
+			button.BorderFrame = border
+		end
+	end
+
+
+	for _, name in ipairs(microButtons) do
+		local button = _G[name]
+		if button and button.OnEnter then
+			button:HookScript("OnEnter", function()
+				button.BorderFrame:SetBackdropColor(60/255, 60/255, 60/255, 1)
+			end)
+			button:HookScript("OnLeave", function()
+				button.BorderFrame:SetBackdropColor(26/255, 26/255, 26/255, 1)
+			end)
+		end
+	end
+
+	local spacing = 1.1
+
+	for i, name in ipairs(microButtons) do
+		local button = _G[name]
+		if button then
+			button:ClearAllPoints()
+			button:SetFrameStrata("BACKGROUND")
+			if i == 1 then
+				button:SetPoint("TOPLEFT", Minimap, "BOTTOMLEFT", -0.5, -2.1)
+			else
+				local previousButton = _G[microButtons[i - 1]]
+				button:SetPoint("LEFT", previousButton, "RIGHT", spacing, 0)
+			end
+		end
+	end
+end
+
 function FUI:SetupMicroMenu()
     if not Minimap or self.MinimapMicroCapture then return end
 
@@ -257,4 +335,8 @@ function FUI:SetupMicroMenu()
     end
 
     self.MinimapMicroCapture = capture
+
+    if FUI.db.global.Skinning.SkinMicroMenu then
+        SkinMicroMenu()
+    end
 end
