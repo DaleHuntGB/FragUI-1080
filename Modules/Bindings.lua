@@ -1,0 +1,6 @@
+local _, FragUI = ...
+
+BINDING_HEADER_FragUI = "|cFF8080FFFragUI|r"
+BINDING_NAME_FragUIHIDEBARS = "Hide ActionBars OOC"
+BINDING_NAME_FragUILEAVEPARTY = "Leave Party"
+BINDING_NAME_FragUIOPENVAULT = "Open Great Vault"

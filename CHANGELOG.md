@@ -1,0 +1,78 @@
+# FragUI
+
+## [440880b](https://github.com/DaleHuntGB/FragUI/tree/440880bd66095c29b4c09ddc3df148426a1b4690) (2026-02-21)
+[Full Changelog](https://github.com/DaleHuntGB/FragUI/commits/440880bd66095c29b4c09ddc3df148426a1b4690) 
+
+- MicroMenu Minimap  
+- tweaks  
+- useful cvars  
+- Font Options, Extra CVars  
+- fix auras  
+- remove this shit  
+- update ls toasts import  
+- LS Toasts Skin  
+- fix item level anchor  
+- tidy up  
+- Add Cooldown Highlighter support  
+- fix datatexts  
+- rename shit  
+- position durability  
+- Add Item Level  
+- move it up  
+- fix autosell  
+- durability frame and fix QoL auto repair  
+- datatext improvements  
+- stuff  
+- Custom Mail Icon  
+- data texts  
+- Data texts  
+- justify  
+- skin information tag  
+- Bugsack / LST  
+- Add Baganator skin  
+- improve gui  
+- import/export  
+- yeet  
+- remove print  
+- toggle external defensives  
+- pleb security  
+- graphics options  
+- nil check  
+- tiptac fixes  
+- chat backdrops  
+- tidy up  
+- clarity  
+- crosshair textures  
+- static popup  
+- just set the profile if it exists  
+- gui  
+- update import for minimapstats  
+- Chat  
+- bartender load check  
+- prompt reload after imports  
+- details cook  
+- Details  
+- chat tweaks & healer profile  
+- updates  
+- ibraries  
+- profile updates  
+- profile importing  
+- release.sh  
+- adding stuff  
+- font styling  
+- texture stripping  
+- skinning options  
+- aura options  
+- auras  
+- fix auras  
+- auras  
+- create frame differently  
+- Auras  
+- fix combat alert  
+- initial profile sharing  
+- skip role check  
+- fix crosshair stuff  
+- crosshair  
+- always show above  
+- Crosshair  
+- FragUI Initial Push  

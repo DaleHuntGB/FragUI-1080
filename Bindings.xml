@@ -1,0 +1,12 @@
+<Bindings>
+    <Binding name="FragUIHIDEBARS" category="BINDING_HEADER_FragUI">
+      local function t(n)
+      Bartender4.Bar.barregistry[n]:SetVisibilityOption("always",not Bartender4.Bar.barregistry[n]:GetVisibilityOption("always")) end t("1") t("3") t("4") t("5") t("6") t("PetBar")
+    </Binding>
+    <Binding name="FragUILEAVEPARTY" category="BINDING_HEADER_FragUI">
+      C_PartyInfo.LeaveParty()
+    </Binding>
+    <Binding name="FragUIOPENVAULT" category="BINDING_HEADER_FragUI">
+      C_AddOns.LoadAddOn("Blizzard_WeeklyRewards"); if WeeklyRewardsFrame:IsShown() then WeeklyRewardsFrame:Hide() else  WeeklyRewardsFrame:Show() end
+    </Binding>
+</Bindings>
