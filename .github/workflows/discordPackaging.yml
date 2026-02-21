@@ -1,0 +1,85 @@
+name: Discord Packaging
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  package-and-discord:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install packaging dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y subversion mercurial zip dos2unix jq
+
+      - name: Build zip
+        run: |
+          chmod +x release.sh
+          mkdir -p "${GITHUB_WORKSPACE}/.release"
+          ./release.sh -d -m .pkgmeta -r "${GITHUB_WORKSPACE}/.release"
+
+      - name: Resolve zip
+        id: package
+        run: |
+          set -euo pipefail
+          ZIP_PATH="$(find "${GITHUB_WORKSPACE}/.release" -maxdepth 1 -type f -name '*.zip' ! -name '*-nolib.zip' | sort | tail -n1)"
+          if [[ -z "${ZIP_PATH}" ]]; then
+            echo "No zip found."
+            exit 1
+          fi
+          echo "zip_path=${ZIP_PATH}" >> "${GITHUB_OUTPUT}"
+          echo "zip_name=$(basename "${ZIP_PATH}")" >> "${GITHUB_OUTPUT}"
+
+      - name: Post to Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          ZIP_PATH: ${{ steps.package.outputs.zip_path }}
+          ZIP_NAME: ${{ steps.package.outputs.zip_name }}
+          VERSION: ${{ github.event.release.tag_name }}
+          RELEASE_BODY: ${{ github.event.release.body }}
+        run: |
+          set -euo pipefail
+
+          if [[ -z "${DISCORD_WEBHOOK_URL:-}" ]]; then
+            echo "DISCORD_WEBHOOK_URL secret is not configured."
+            exit 1
+          fi
+
+          CLEAN_RELEASE_BODY="${RELEASE_BODY//$'\r'/}"
+          CHANGELOG="${CLEAN_RELEASE_BODY:-No changelog text provided in the GitHub release.}"
+
+          # Keep content safely below Discord's message limit.
+          MAX_CHANGELOG_CHARS=1500
+          if (( ${#CHANGELOG} > MAX_CHANGELOG_CHARS )); then
+            CHANGELOG="${CHANGELOG:0:MAX_CHANGELOG_CHARS}"$'\n'"...(truncated)"
+          fi
+
+          CONTENT="$(printf '**Release:** %s\n**Version:** %s\n\n**Change Log:**\n%s' "${ZIP_NAME}" "${VERSION}" "${CHANGELOG}")"
+          PAYLOAD="$(jq -nc --arg content "${CONTENT}" '{content: $content}')"
+
+          RESPONSE_FILE="$(mktemp)"
+          HTTP_CODE="$(curl -sS -o "${RESPONSE_FILE}" -w '%{http_code}' -X POST \
+            -F "payload_json=${PAYLOAD}" \
+            -F "file=@${ZIP_PATH}" \
+            "${DISCORD_WEBHOOK_URL}" || true)"
+
+          if [[ ! "${HTTP_CODE}" =~ ^[0-9]{3}$ ]]; then
+            echo "Discord webhook request failed before receiving an HTTP status."
+            cat "${RESPONSE_FILE}"
+            exit 1
+          fi
+
+          if [[ "${HTTP_CODE}" -lt 200 || "${HTTP_CODE}" -ge 300 ]]; then
+            echo "Discord webhook failed with HTTP ${HTTP_CODE}."
+            cat "${RESPONSE_FILE}"
+            exit 1
+          fi
