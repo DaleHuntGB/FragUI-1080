@@ -23,5 +23,6 @@ function FragUI:OnEnable()
     FUI:SetupItemLevel()
     FUI:SetupMailIcon()
     FUI:SetupMicroMenu()
+    FUI:SetupMouseCursor()
     FUI:SetupQualityOfLife()
 end

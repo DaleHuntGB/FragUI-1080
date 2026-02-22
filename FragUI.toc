@@ -24,6 +24,7 @@ Modules/ItemLevel.lua
 Modules/LSToasts.lua
 Modules/Mail.lua
 Modules/MicroMenu.lua
+Modules/MouseCursor.lua
 Modules/ProfileManager.lua
 Modules/QualityOfLife.lua
 Modules/Skinning.lua

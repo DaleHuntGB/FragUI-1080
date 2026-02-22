@@ -935,7 +935,28 @@ local function CreateQualityOfLifeSettings(parentContainer)
     RepairMethodDropdown:SetRelativeWidth(1)
     AutoSellRepairContainer:AddChild(RepairMethodDropdown)
 
+    local MouseCursorContainer = AG:Create("InlineGroup")
+    MouseCursorContainer:SetTitle("Mouse Cursor")
+    MouseCursorContainer:SetLayout("Flow")
+    MouseCursorContainer:SetFullWidth(true)
+    parentContainer:AddChild(MouseCursorContainer)
 
+    local EnableToggle = AG:Create("CheckBox")
+    EnableToggle:SetLabel("Enable")
+    EnableToggle:SetValue(FUI.db.global.MouseCursor.Enabled)
+    EnableToggle:SetDescription("|cFFCCCCCCProvides an overlay for your Mouse Cursor.|r")
+    EnableToggle:SetCallback("OnValueChanged", function(_, _, value) FUI.db.global.MouseCursor.Enabled = value FUI:UpdateMouseCursor() MouseCursorTextureDropdown:SetDisabled(not value) end)
+    EnableToggle:SetRelativeWidth(0.5)
+    MouseCursorContainer:AddChild(EnableToggle)
+
+    MouseCursorTextureDropdown = AG:Create("Dropdown")
+    MouseCursorTextureDropdown:SetLabel("Mouse Cursor Texture")
+    MouseCursorTextureDropdown:SetList({ ["Cursor 01"] = "|A:" .. FUI.MOUSE_CURSOR_TEXTURES["Cursor 01"] .. ":32:32|a", ["Cursor 02"] = "|A:" .. FUI.MOUSE_CURSOR_TEXTURES["Cursor 02"] .. ":32:32|a" }, { "Cursor 01", "Cursor 02" })
+    MouseCursorTextureDropdown:SetValue(FUI.db.global.MouseCursor.Texture)
+    MouseCursorTextureDropdown:SetCallback("OnValueChanged", function(_, _, value) FUI.db.global.MouseCursor.Texture = value FUI:UpdateMouseCursor() end)
+    MouseCursorTextureDropdown:SetRelativeWidth(0.5)
+    MouseCursorTextureDropdown:SetDisabled(not FUI.db.global.MouseCursor.Enabled)
+    MouseCursorContainer:AddChild(MouseCursorTextureDropdown)
 
     return parentContainer
 end

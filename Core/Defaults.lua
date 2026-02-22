@@ -125,6 +125,12 @@ local Defaults = {
             Texture = "Mail 03",
             Colour = { 255/255, 255/255, 255/255, 1 },
         },
+        MouseCursor = {
+            Enabled = true,
+            Height = 90,
+            Width = 90,
+            Texture = "Cursor 01",
+        },
         QualityOfLife = {
             SkipCinematics = true,
             HideTalkingHeadFrame = true,

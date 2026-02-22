@@ -58,6 +58,25 @@
         "CharacterStatsPane",
         "FormatUnreadMailTooltip",
         "HAVE_MAIL",
-        "HAVE_MAIL_FROM"
+        "HAVE_MAIL_FROM",
+        "TalkingHeadFrame",
+        "CinematicFrame_CancelCinematic",
+        "LFGListApplicationDialog",
+        "ChatBubbleFont",
+        "ObjectiveTrackerLineFont",
+        "ObjectiveTrackerHeaderFont",
+        "UIErrorsFrame",
+        "ActionStatus",
+        "ZoneTextFrame",
+        "SubZoneTextFrame",
+        "ObjectiveTrackerFrame",
+        "QuestObjectiveTracker",
+        "WorldQuestObjectiveTracker",
+        "ScenarioObjectiveTracker",
+        "MonthlyActivitiesObjectiveTracker",
+        "BonusObjectiveTracker",
+        "ProfessionsRecipeTracker",
+        "AchievementObjectiveTracker",
+        "CampaignQuestObjectiveTracker"
     ]
 }

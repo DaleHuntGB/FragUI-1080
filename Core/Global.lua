@@ -49,6 +49,11 @@ FUI.MAIL_TEXTURES = {
     ["Mail 05"] = "Interface\\AddOns\\FragUI\\Media\\Textures\\Mail_05.png",
 }
 
+FUI.MOUSE_CURSOR_TEXTURES = {
+    ["Cursor 01"] = "talents-search-notonactionbar",
+    ["Cursor 02"] = "talents-search-notonactionbarhidden",
+}
+
 local SHADOW_OPTIONS = {
     [0] = "Low",
     [1] = "Fair",
