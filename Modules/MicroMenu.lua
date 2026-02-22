@@ -318,25 +318,18 @@ local function SkinMicroMenu()
 end
 
 function FUI:SetupMicroMenu()
-    if not Minimap or self.MinimapMicroCapture then return end
+    if not Minimap or self.MinimapMicroHooked then return end
 
-    local capture = CreateFrame("Frame", "FUI_MinimapInputCapture", Minimap)
-    capture:SetAllPoints(Minimap)
-    capture:SetFrameStrata("DIALOG")
-    capture:SetFrameLevel((Minimap:GetFrameLevel() or 1) + 10)
-    capture:EnableMouse(true)
+    Minimap:HookScript("OnMouseDown", function(_, button)
+        if button == "MiddleButton" then
+            OpenMicroMenu()
+        end
+    end)
 
-    if capture.SetPassThroughButtons then
-        capture:SetPassThroughButtons("LeftButton")
-        capture:SetScript("OnMouseDown", HandleMinimapMouseDown)
-    else
-        capture:EnableMouse(false)
-        Minimap:HookScript("OnMouseDown", function(_, button) if button == "MiddleButton" then OpenMicroMenu() end end)
-    end
-
-    self.MinimapMicroCapture = capture
+    self.MinimapMicroHooked = true
 
     if FUI.db.global.Skinning.SkinMicroMenu then
         SkinMicroMenu()
     end
 end
+
