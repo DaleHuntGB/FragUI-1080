@@ -223,23 +223,16 @@ local function OpenMicroMenu()
     ToggleDropDownMenu(1, nil, menuRoot, fixedAnchor, 0, 0)
 end
 
+local lastMiddleClickTime = 0
+
 local function HandleMinimapMouseDown(_, button)
     if button == "MiddleButton" then
+        if (GetTime() - lastMiddleClickTime) < 0.2 then return end
+        lastMiddleClickTime = GetTime()
         OpenMicroMenu()
         return
-    end
-
-    if button == "RightButton" and IsShiftKeyDown() then
-        OpenMicroMenu()
-        return
-    end
-
-    if button == "RightButton" then
-        OpenTrackingMenu()
     end
 end
-
-local _, FUI = ...
 
 local function SkinMicroMenu()
 	local microButtons = {
@@ -272,7 +265,7 @@ local function SkinMicroMenu()
 		if button and not button.BorderFrame then
 			local border = CreateFrame("Frame", nil, button, "BackdropTemplate")
 			border:SetFrameLevel(button:GetFrameLevel() - 1)
-            button:SetSize(20.4, 26)
+            button:SetSize(23, 30)
 
 			border:SetPoint("TOPLEFT", button, -1, 1)
 			border:SetPoint("BOTTOMRIGHT", button, 1, -1)
@@ -320,13 +313,25 @@ end
 function FUI:SetupMicroMenu()
     if not Minimap or self.MinimapMicroHooked then return end
 
-    Minimap:RegisterForClicks("LeftButtonUp", "RightButtonUp", "MiddleButtonUp")
+    local clickFrame = self.MinimapMicroClickFrame or CreateFrame("Frame", nil, Minimap)
+    self.MinimapMicroClickFrame = clickFrame
 
-    Minimap:HookScript("OnMouseUp", function(_, button)
-        if button == "MiddleButton" then
-            OpenMicroMenu()
-        end
-    end)
+    clickFrame:SetParent(Minimap)
+    clickFrame:SetAllPoints(Minimap)
+    clickFrame:SetFrameStrata("MEDIUM")
+    clickFrame:SetFrameLevel((Minimap:GetFrameLevel() or 0) + 50)
+    clickFrame:EnableMouse(true)
+    clickFrame:SetScript("OnMouseDown", HandleMinimapMouseDown)
+    clickFrame:SetScript("OnMouseUp", HandleMinimapMouseDown)
+    clickFrame:Show()
+
+    if clickFrame.SetPassThroughButtons then
+        clickFrame:SetPassThroughButtons("LeftButton", "RightButton")
+    end
+
+    if clickFrame.SetPropagateMouseMotion then
+        clickFrame:SetPropagateMouseMotion(true)
+    end
 
     self.MinimapMicroHooked = true
 
@@ -334,5 +339,3 @@ function FUI:SetupMicroMenu()
         SkinMicroMenu()
     end
 end
-
-
