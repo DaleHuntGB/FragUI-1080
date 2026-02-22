@@ -320,7 +320,9 @@ end
 function FUI:SetupMicroMenu()
     if not Minimap or self.MinimapMicroHooked then return end
 
-    Minimap:HookScript("OnMouseDown", function(_, button)
+    Minimap:RegisterForClicks("LeftButtonUp", "RightButtonUp", "MiddleButtonUp")
+
+    Minimap:HookScript("OnMouseUp", function(_, button)
         if button == "MiddleButton" then
             OpenMicroMenu()
         end
@@ -332,4 +334,5 @@ function FUI:SetupMicroMenu()
         SkinMicroMenu()
     end
 end
+
 
