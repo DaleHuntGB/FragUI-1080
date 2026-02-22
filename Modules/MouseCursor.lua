@@ -1,6 +1,7 @@
 local _, FUI = ...
 
 function FUI:SetupMouseCursor()
+    if not FUI.db.global.MouseCursor.Enabled then return end
     local MouseCursorDB = FUI.db.global.MouseCursor
     local MouseTexture = CreateFrame("Frame", "FUI_MouseCursor", UIParent)
     MouseTexture:SetPoint("CENTER", UIParent, "BOTTOMLEFT", 0, 0)
