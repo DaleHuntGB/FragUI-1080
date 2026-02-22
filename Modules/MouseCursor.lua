@@ -1,7 +1,6 @@
 local _, FUI = ...
 
 function FUI:SetupMouseCursor()
-    if not FUI.db.global.MouseCursor.Enabled then return end
     local MouseCursorDB = FUI.db.global.MouseCursor
     local MouseTexture = CreateFrame("Frame", "FUI_MouseCursor", UIParent)
     MouseTexture:SetPoint("CENTER", UIParent, "BOTTOMLEFT", 0, 0)
@@ -11,7 +10,11 @@ function FUI:SetupMouseCursor()
     MouseTexture.Texture:SetAllPoints()
     MouseTexture.Texture:SetAtlas(FUI.MOUSE_CURSOR_TEXTURES[MouseCursorDB.Texture])
 
-    MouseTexture:SetScript("OnUpdate", function(mouseTexture) local mouseX, mouseY = GetCursorPosition() local uiScale = UIParent:GetEffectiveScale() mouseTexture:ClearAllPoints() mouseTexture:SetPoint("CENTER", UIParent, "BOTTOMLEFT", mouseX / uiScale + 13, mouseY / uiScale - 13) end)
+    if FUI.db.global.MouseCursor.Enabled then
+        MouseTexture:SetScript("OnUpdate", function(mouseTexture) local mouseX, mouseY = GetCursorPosition() local uiScale = UIParent:GetEffectiveScale() mouseTexture:ClearAllPoints() mouseTexture:SetPoint("CENTER", UIParent, "BOTTOMLEFT", mouseX / uiScale + 13, mouseY / uiScale - 13) end)
+    else
+        MouseTexture:Hide()
+    end
 
     FUI.MouseCursor = MouseTexture
 
