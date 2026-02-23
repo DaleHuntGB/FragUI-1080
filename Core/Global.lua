@@ -151,6 +151,8 @@ function FUI:SetupSlashCommands()
         elseif MSG == "dev" then
             FUI:CreateGUI()
             FUI.DEVELOPER_MODE = true
+        elseif MSG == "debug" then
+            FUI:GenerateDebugFrame()
         end
     end
 end
