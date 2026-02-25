@@ -3,6 +3,7 @@
 ## Author: |cFF8080FFUnhalted|r
 ## Category-enUS: |cFF8080FFUnhalted|r Development
 ## SavedVariables: FUIDB
+## Version: @project-version@
 
 Libraries/Init.xml
 
