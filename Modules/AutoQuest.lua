@@ -13,6 +13,9 @@ local function ResetDeferred()
 end
 
 local function IsAutoQuestEnabled()
+    if IsShiftKeyDown() then
+        return false
+    end
     return FUI.db and FUI.db.global and FUI.db.global.QualityOfLife and FUI.db.global.QualityOfLife.AutoQuest
 end
 
