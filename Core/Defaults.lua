@@ -135,6 +135,7 @@ local Defaults = {
             SkipCinematics = true,
             HideTalkingHeadFrame = true,
             SkipRoleCheck = true,
+            AutoQuest = true,
             AutoSellRepair = {
                 SellGreys = true,
                 AutoRepair = true,
