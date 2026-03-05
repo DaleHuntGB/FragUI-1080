@@ -1,26 +1,29 @@
 ## Title: |cFF8080FFFrag|rUI
 ## Interface: 120000, 120001
+## Version: @project-version@
 ## Author: |cFF8080FFUnhalted|r
 ## Category-enUS: |cFF8080FFUnhalted|r Development
 ## SavedVariables: FUIDB
-## Version: @project-version@
 
 Libraries/Init.xml
 
 Core/Global.lua
 
 Modules/Auras.lua
+Modules/AutoQuest.lua
 Modules/Baganator.lua
 Modules/Bartender.lua
 Modules/Bindings.lua
 Modules/BugSack.lua
 Modules/Chat.lua
 Modules/CombatAlert.lua
+Modules/CombatTimer.lua
 Modules/Crosshair.lua
 Modules/CVars.lua
 Modules/Details.lua
 Modules/DataTexts.lua
 Modules/Durability.lua
+Modules/ExperienceBar.lua
 Modules/ItemLevel.lua
 Modules/LSToasts.lua
 Modules/Mail.lua
