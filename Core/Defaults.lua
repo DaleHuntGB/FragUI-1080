@@ -140,8 +140,9 @@ local Defaults = {
                 AutoRepair = true,
                 RepairMethod = "PERSONAL"
             },
-            DataTexts = true,
+            ExperienceBar = true,
             DurabilityFrame = false,
+            CombatTimer = true,
         }
     }
 }
