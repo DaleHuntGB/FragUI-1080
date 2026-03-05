@@ -42,7 +42,7 @@ local function StyleAuraFrame(aura)
     if aura.isAuraAnchor or not aura.Icon then return end
     local auraIcon, auraDuration, auraCount = aura.Icon, aura.Duration, aura.Count
     local auraBorder = aura.DebuffBorder or aura.BuffBorder
-    auraIcon:SetSize(32, 32)
+    auraIcon:SetSize(36, 36)
     auraIcon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
     if auraBorder then auraBorder:SetTexture(nil) end
     if not aura.PixelBorder then CreatePixelBorder(aura) end
@@ -57,14 +57,14 @@ local function StyleAuraFrame(aura)
     if auraDuration then
         auraDuration:ClearAllPoints()
         auraDuration:SetPoint("CENTER", auraIcon, "BOTTOM", 0, 0)
-        auraDuration:SetFont(FUI.Media.Font, 10, FUI.Media.FontFlag)
+        auraDuration:SetFont(FUI.Media.Font, 12, FUI.Media.FontFlag)
         auraDuration:SetShadowOffset(0, 0)
     end
 
     if auraCount then
         auraCount:ClearAllPoints()
-        auraCount:SetPoint("BOTTOMRIGHT", auraIcon, "BOTTOMRIGHT", 2, 1)
-        auraCount:SetFont(FUI.Media.Font, 10, FUI.Media.FontFlag)
+        auraCount:SetPoint("BOTTOMRIGHT", auraIcon, "BOTTOMRIGHT", 0, 2)
+        auraCount:SetFont(FUI.Media.Font, 12, FUI.Media.FontFlag)
     end
 end
 
@@ -72,7 +72,7 @@ local function StyleExternalAuraFrame(aura)
     if aura.isAuraAnchor or not aura.Icon then return end
     local auraIcon, auraDuration, auraCount = aura.Icon, aura.Duration, aura.Count
     local auraBorder = aura.DebuffBorder or aura.BuffBorder
-    auraIcon:SetSize(32, 32)
+    auraIcon:SetSize(40, 40)
     auraIcon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
     if auraBorder then auraBorder:SetTexture(nil) end
     if not aura.PixelBorder then CreatePixelBorder(aura) end
@@ -87,21 +87,21 @@ local function StyleExternalAuraFrame(aura)
     if auraDuration then
         auraDuration:ClearAllPoints()
         auraDuration:SetPoint("CENTER", auraIcon, "BOTTOM", 0, 0)
-        auraDuration:SetFont(FUI.Media.Font, 11, FUI.Media.FontFlag)
+        auraDuration:SetFont(FUI.Media.Font, 12, FUI.Media.FontFlag)
         auraDuration:SetShadowOffset(0, 0)
     end
 
     if auraCount then
         auraCount:ClearAllPoints()
         auraCount:SetPoint("BOTTOMRIGHT", auraIcon, "BOTTOMRIGHT", 0, 2)
-        auraCount:SetFont(FUI.Media.Font, 11, FUI.Media.FontFlag)
+        auraCount:SetFont(FUI.Media.Font, 12, FUI.Media.FontFlag)
     end
 end
 
 local function SpaceRows(self)
     if not self or not self.AuraContainer or not self.auraFrames then return end
-    local iconStride = self.AuraContainer.iconStride or 12
-    local iconPadding = self.AuraContainer.iconPadding or 5
+    local iconStride = self.AuraContainer.iconStride or 16
+    local iconPadding = self.AuraContainer.iconPadding or 9
     local previousAura, rowAnchor
     for i = 1, #self.auraFrames do
         local aura = self.auraFrames[i]
@@ -146,6 +146,17 @@ local function StyleDebuffs()
     end
 end
 
+function FUI:PositionAuras()
+    if BuffFrame then
+        BuffFrame:ClearAllPoints()
+        BuffFrame:SetPoint("TOPRIGHT", Minimap, "TOPLEFT", 3.1, 0)
+    end
+    if DebuffFrame then
+        DebuffFrame:ClearAllPoints()
+        DebuffFrame:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMLEFT", -6.1, -13.1)
+    end
+end
+
 local function StyleExternalDefensives()
     if not ExternalDefensivesFrame then return end
     for _, aura in pairs(ExternalDefensivesFrame.auraFrames) do
@@ -155,6 +166,19 @@ local function StyleExternalDefensives()
     ExternalDefensivesFrame:SetPoint("RIGHT", UUF_Player, "LEFT", -3, -10)
     ExternalDefensivesFrame:SetFrameStrata("MEDIUM")
 end
+
+local eventFrame = CreateFrame("Frame")
+eventFrame:RegisterEvent("PLAYER_LOGIN")
+eventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
+eventFrame:RegisterEvent("ZONE_CHANGED")
+eventFrame:RegisterEvent("LOADING_SCREEN_DISABLED")
+eventFrame:SetScript("OnEvent", function(_, event, ...)
+    if event == "PLAYER_LOGIN" or event == "PLAYER_ENTERING_WORLD" or event == "ZONE_CHANGED" or event == "LOADING_SCREEN_DISABLED" then
+        StyleBuffs()
+        SpaceRows(BuffFrame)
+        FUI:PositionAuras()
+    end
+end)
 
 function FUI:SetupAuraHooks()
     if not FUI.db.global.Skinning.SkinAuras then return end
@@ -169,4 +193,5 @@ function FUI:SetupAuras()
     StyleDebuffs()
     StyleExternalDefensives()
     SpaceRows(BuffFrame)
+    FUI:PositionAuras()
 end
