@@ -20,7 +20,7 @@ end
 
 function FUI:SetupDurability()
     if not FUI.db.global.QualityOfLife.DurabilityFrame then return end
-    local DurabilityFrame = CreateFrame("Frame", "FUI_DurabilityFrame", UIParent)
+    local DurabilityFrame = CreateFrame("Frame", "FUI_DurabilityFrame", CharacterModelScene)
     DurabilityFrame:SetSize(128, 24)
     DurabilityFrame:SetPoint("TOP", CharacterModelScene, "TOP", 0, 2)
     DurabilityFrame:SetFrameStrata("HIGH")
