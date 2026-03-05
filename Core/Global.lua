@@ -52,6 +52,10 @@ FUI.MAIL_TEXTURES = {
 FUI.MOUSE_CURSOR_TEXTURES = {
     ["Cursor 01"] = "talents-search-notonactionbar",
     ["Cursor 02"] = "talents-search-notonactionbarhidden",
+    ["Cursor 03"] = "Interface\\AddOns\\FragUI\\Media\\Textures\\Cursor_01.png",
+    ["Cursor 04"] = "Interface\\AddOns\\FragUI\\Media\\Textures\\Cursor_02.png",
+    ["Cursor 05"] = "Interface\\AddOns\\FragUI\\Media\\Textures\\Cursor_03.png",
+    ["Cursor 06"] = "Interface\\AddOns\\FragUI\\Media\\Textures\\Cursor_04.png",
 }
 
 local SHADOW_OPTIONS = {

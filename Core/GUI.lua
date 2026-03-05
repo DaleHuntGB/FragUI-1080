@@ -951,7 +951,7 @@ local function CreateQualityOfLifeSettings(parentContainer)
 
     MouseCursorTextureDropdown = AG:Create("Dropdown")
     MouseCursorTextureDropdown:SetLabel("Mouse Cursor Texture")
-    MouseCursorTextureDropdown:SetList({ ["Cursor 01"] = "|A:" .. FUI.MOUSE_CURSOR_TEXTURES["Cursor 01"] .. ":32:32|a", ["Cursor 02"] = "|A:" .. FUI.MOUSE_CURSOR_TEXTURES["Cursor 02"] .. ":32:32|a" }, { "Cursor 01", "Cursor 02" })
+    MouseCursorTextureDropdown:SetList({ ["Cursor 01"] = "|A:" .. FUI.MOUSE_CURSOR_TEXTURES["Cursor 01"] .. ":32:32|a", ["Cursor 02"] = "|A:" .. FUI.MOUSE_CURSOR_TEXTURES["Cursor 02"] .. ":32:32|a", ["Cursor 03"] = "|T" .. FUI.MOUSE_CURSOR_TEXTURES["Cursor 03"] .. ":22:22|t", ["Cursor 04"] = "|T" .. FUI.MOUSE_CURSOR_TEXTURES["Cursor 04"] .. ":22:22|t", ["Cursor 05"] = "|T" .. FUI.MOUSE_CURSOR_TEXTURES["Cursor 05"] .. ":22:22|t", ["Cursor 06"] = "|T" .. FUI.MOUSE_CURSOR_TEXTURES["Cursor 06"] .. ":22:22|t" }, { "Cursor 01", "Cursor 02", "Cursor 03", "Cursor 04", "Cursor 05", "Cursor 06" })
     MouseCursorTextureDropdown:SetValue(FUI.db.global.MouseCursor.Texture)
     MouseCursorTextureDropdown:SetCallback("OnValueChanged", function(_, _, value) FUI.db.global.MouseCursor.Texture = value FUI:UpdateMouseCursor() end)
     MouseCursorTextureDropdown:SetRelativeWidth(0.5)
