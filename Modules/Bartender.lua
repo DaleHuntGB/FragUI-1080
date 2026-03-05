@@ -4,7 +4,7 @@ function FUI:StyleBartender()
     if not C_AddOns.IsAddOnLoaded("Bartender4") then return end
     if not self.db.global.Skinning.SkinActionBars then return end
     C_Timer.After(0.1, function()
-        for i = 1, 128 do
+        for i = 1, 200 do
             local BT4Button = _G["BT4Button"..i]
             if BT4Button then
                 if BT4Button.NormalTexture then BT4Button.NormalTexture:SetAlpha(0) end
