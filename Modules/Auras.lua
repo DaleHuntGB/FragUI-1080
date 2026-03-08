@@ -149,11 +149,11 @@ end
 function FUI:PositionAuras()
     if BuffFrame then
         BuffFrame:ClearAllPoints()
-        BuffFrame:SetPoint("TOPRIGHT", Minimap, "TOPLEFT", 3.1, 0)
+        BuffFrame:SetPoint("TOPRIGHT", Minimap, "TOPLEFT", -1.1, 0)
     end
     if DebuffFrame then
         DebuffFrame:ClearAllPoints()
-        DebuffFrame:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMLEFT", -6.1, -13.1)
+        DebuffFrame:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMLEFT", -6.1, -54.1)
     end
 end
 
